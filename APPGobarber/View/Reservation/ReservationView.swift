@@ -22,18 +22,18 @@ struct ReservationView: View {
                     .pickerStyle(MenuPickerStyle())
                 }
                 .onChange(of: selectedBarberShop) { newValue in
-                    Task {
-                        if let barbershop = newValue {
+                    if let barbershop = newValue {
+                        Task {
                             await viewModel.fetchBarbers(barbershopId: barbershop.id!)
-                        }
+                                    }
                     }
                 }
 
                 // Barber selection
-                if selectedBarberShop != nil {
+                if let barbershop = selectedBarberShop {
                     Section(header: Text("Select Barber")) {
                         Picker("Barber", selection: $selectedBarber) {
-                            ForEach(viewModel.barbers.filter { $0.barbershopId == selectedBarberShop?.id }, id: \.id) { barber in
+                            ForEach(viewModel.barbers) { barber in
                                 Text(barber.name).tag(barber as Barber?)
                             }
                         }
@@ -44,7 +44,7 @@ struct ReservationView: View {
                 // Service selection
                 Section(header: Text("Select Service")) {
                     Picker("Service", selection: $selectedService) {
-                        ForEach(viewModel.services, id: \.id) { service in
+                        ForEach(viewModel.services) { service in
                             Text(service.name).tag(service as ServiceBarber?)
                         }
                     }
@@ -53,16 +53,27 @@ struct ReservationView: View {
 
                 // Date selection
                 Section(header: Text("Select Date")) {
-                    DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                                    DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+                                }
                 }
 
                 // Time slot selection
-                if selectedBarber != nil {
-                    Section(header: Text("Select Time Slot")) {
-                        Picker("Time Slot", selection: $selectedTimeSlot) {
-                            ForEach(viewModel.availableTimeSlots, id: \.self) { timeSlot in
-                                Text(timeSlot).tag(timeSlot as String?)
-                            }
+            if let barber = selectedBarber {
+                Section(header: Text("Select Time Slot")) {
+                    Picker("Time Slot", selection: $selectedTimeSlot) {
+                        ForEach(viewModel.availableTimeSlots, id: \.self) { timeSlot in
+                            Text(timeSlot).tag(timeSlot as String?)
+                        }
+                    }
+                    .onAppear {
+                        Task {
+                            await viewModel.fetchAvailableTimeSlots(for: barber.id!, on: selectedDate)
+                        }
+                    }
+                    .onChange(of: selectedDate) { newValue in
+                        Task {
+                            await viewModel.fetchAvailableTimeSlots(for: barber.id!, on: newValue)
+                        }
                         }
                         .pickerStyle(MenuPickerStyle())
                     }
@@ -76,7 +87,7 @@ struct ReservationView: View {
                               let service = selectedService,
                               let timeSlot = selectedTimeSlot else { return }
                         Task {
-                            await viewModel.createReservation(BarberShop: barbershop, Barber: barber, ServiceBarber: service, date: selectedDate, timeSlot: timeSlot)
+                            await viewModel.createReservation(barberShop: barbershop, barber: barber, service: service, date: selectedDate, timeSlot: timeSlot)
                         }
                     }) {
                         Text("Reserve")
@@ -88,7 +99,7 @@ struct ReservationView: View {
                     }
                     .disabled(selectedBarberShop == nil || selectedBarber == nil || selectedService == nil || selectedTimeSlot == nil)
                 }
-            }
+            
             .navigationTitle("New Reservation")
         }
         .onAppear {
@@ -118,7 +129,6 @@ struct ReservationView: View {
 
 struct ReservationView_Previews: PreviewProvider {
     static var previews: some View {
-         ReservationView()
-            
+        ReservationView().environmentObject(ReservationViewModel())            
     }
 }

@@ -19,6 +19,7 @@ class AppDelegate: NSObject, UIApplicationDelegate{
 @main
 struct APPGobarberApp: App {
     @StateObject var viewModel = AuthViewModel()
+    @StateObject private var reservationViewModel = ReservationViewModel()
     init(){
         FirebaseApp.configure()
     }
@@ -26,6 +27,7 @@ struct APPGobarberApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(viewModel)
+                .environmentObject(reservationViewModel)
                 
         }
     }

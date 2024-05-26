@@ -46,40 +46,62 @@ class ReservationViewModel: ObservableObject {
         }
     
     func fetchBarbershops() async {
-            let snapshot = try? await Firestore.firestore().collection("BarberShops").getDocuments()
+            let snapshot = try? await Firestore.firestore().collection("BarberShops Collection").getDocuments()
             self.barbershops = snapshot?.documents.compactMap { try? $0.data(as: BarberShop.self) } ?? []
         }
     
     func fetchBarbers(barbershopId: String) async {
-            let snapshot = try? await Firestore.firestore().collection("Barbers").whereField("barbershopId", isEqualTo: barbershopId).getDocuments()
-            self.barbers = snapshot?.documents.compactMap { try? $0.data(as: Barber.self) } ?? []
+            let barbershopReference = Firestore.firestore().collection("BarberShops Collection").document(barbershopId)
+            do {
+                let snapshot = try await Firestore.firestore().collection("Barbers Collection")
+                    .whereField("barbershopReference", isEqualTo: barbershopReference)
+                    .getDocuments()
+                self.barbers = snapshot.documents.compactMap { try? $0.data(as: Barber.self) }
+            } catch {
+                print("Error fetching barbers: \(error.localizedDescription)")
+            }
         }
     
     func fetchServices() async {
-            let snapshot = try? await Firestore.firestore().collection("ServiceBarbers").getDocuments()
-        self.services = snapshot?.documents.compactMap { try? $0.data(as: ServiceBarber.self) } ?? []
+            do {
+                let snapshot = try await Firestore.firestore().collection("ServiceBarber Collection").getDocuments()
+                self.services = snapshot.documents.compactMap { try? $0.data(as: ServiceBarber.self) }
+            } catch {
+                print("Error fetching services: \(error.localizedDescription)")
+            }
         }
     
-    func createReservation(BarberShop:BarberShop,Barber:Barber,ServiceBarber: ServiceBarber, date: Date, timeSlot: String) async {
-        guard let userId = userSession?.uid else { return }
-        let reservation = Reservation(id: UUID().uuidString,userId: userId, barberShopId: BarberShop.id!, barberId: Barber.id!, serviceId: ServiceBarber.id!, date: date, timeSlot: timeSlot)
-        if let encodedReservation = try? Firestore.Encoder().encode(reservation) {
-            try? await Firestore.firestore().collection("reservations").document(reservation.id!).setData(encodedReservation)
-        } else {
-            print("Failed to encode reservation")
+    func createReservation(barberShop: BarberShop, barber: Barber, service: ServiceBarber, date: Date, timeSlot: String) async {
+            guard let userId = userSession?.uid else { return }
+            let reservation = Reservation(userId: userId, barberShopId: barberShop.id!, barberId: barber.id!, serviceId: service.id!, date: date, timeSlot: timeSlot)
+
+            do {
+                let encodedReservation = try Firestore.Encoder().encode(reservation)
+                try await Firestore.firestore().collection("reservations").document().setData(encodedReservation)
+            } catch {
+                print("Error creating reservation: \(error.localizedDescription)")
+            }
         }
-    }
     func fetchAvailableTimeSlots(for barberId: String, on date: Date) async {
-            let snapshot = try? await Firestore.firestore().collection("reservations")
-                .whereField("barberId", isEqualTo: barberId)
-                .whereField("date", isEqualTo: date)
-                .getDocuments()
-            
-            let reservedTimeSlots = snapshot?.documents.compactMap { $0["timeSlot"] as? String } ?? []
-            let allTimeSlots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
-            
-            self.availableTimeSlots = allTimeSlots.filter { !reservedTimeSlots.contains($0) }
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let dateString = dateFormatter.string(from: date)
+
+            do {
+                let snapshot = try await Firestore.firestore().collection("reservations")
+                    .whereField("barberId", isEqualTo: barberId)
+                    .whereField("date", isEqualTo: dateString)
+                    .getDocuments()
+
+                let reservedTimeSlots = snapshot.documents.compactMap { $0["timeSlot"] as? String }
+                let allTimeSlots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
+
+                self.availableTimeSlots = allTimeSlots.filter { !reservedTimeSlots.contains($0) }
+            } catch {
+                print("Error fetching available time slots: \(error.localizedDescription)")
+            }
         }
+
     
     
 }

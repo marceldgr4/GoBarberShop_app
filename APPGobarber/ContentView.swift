@@ -12,7 +12,8 @@ struct ContentView: View {
     var body: some View {
         Group{
                    if viewModel.userSession != nil{
-                      PerfilView()// cambiar despues home
+                      //PerfilView()// cambiar despues home
+                       ReservationView()
                    }else{
                        LoginView()
                    }

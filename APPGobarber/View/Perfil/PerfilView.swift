@@ -47,13 +47,13 @@ struct PerfilView: View {
                         }
                     } else {
                         HStack {
-                            Text("Nombre")
+                            Text("Apellido")
                             Spacer()
                             Text(user.firstName)
                                 .foregroundColor(.gray)
                         }
                         HStack {
-                            Text("Apellido")
+                            Text("Nombre")
                             Spacer()
                             Text(user.name)
                                 .foregroundColor(.gray)
@@ -102,13 +102,14 @@ struct PerfilView: View {
                                        tintColor: .red)
                     }
                     
-                    Button {
+                   /* Button {
                         print("Eliminar cuenta ..")
                     } label: {
                         SettingRowView(imagenName: "xmark.circle.fill",
                                        title: "Eliminar cuenta",
                                        tintColor: .red)
                     }
+                    */
                 }
             }
             .navigationTitle("Perfil")
