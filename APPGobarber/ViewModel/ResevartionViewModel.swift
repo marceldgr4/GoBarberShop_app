@@ -51,25 +51,40 @@ class ReservationViewModel: ObservableObject {
         }
     
     func fetchBarbers(barbershopId: String) async {
-            let barbershopReference = Firestore.firestore().collection("BarberShops Collection").document(barbershopId)
-            do {
-                let snapshot = try await Firestore.firestore().collection("Barbers Collection")
-                    .whereField("barbershopReference", isEqualTo: barbershopReference)
-                    .getDocuments()
-                self.barbers = snapshot.documents.compactMap { try? $0.data(as: Barber.self) }
-            } catch {
-                print("Error fetching barbers: \(error.localizedDescription)")
-            }
-        }
+           let barbershopReference = Firestore.firestore().collection("BarberShops Collection").document(barbershopId)
+           do {
+               let snapshot = try await Firestore.firestore().collection("Barbers Collection")
+                   .whereField("barbershopReference", isEqualTo: barbershopReference)
+                   .getDocuments()
+               self.barbers = snapshot.documents.compactMap { try? $0.data(as: Barber.self) }
+           } catch {
+               print("Error fetching barbers: \(error.localizedDescription)")
+           }
+       }
+   
     
     func fetchServices() async {
             do {
-                let snapshot = try await Firestore.firestore().collection("ServiceBarber Collection").getDocuments()
-                self.services = snapshot.documents.compactMap { try? $0.data(as: ServiceBarber.self) }
+                let snapshot = try await Firestore.firestore().collection("ServiceBarbers Collection").getDocuments()
+                print("Fetched \(snapshot.documents.count) services")
+                
+                self.services = snapshot.documents.compactMap { document in
+                    do {
+                        let service = try document.data(as: ServiceBarber.self)
+                        print("Fetched service: \(service)")
+                        return service
+                    } catch {
+                        print("Error decoding service: \(error)")
+                        return nil
+                    }
+                }
+                
+                print("Services array: \(self.services)")
             } catch {
                 print("Error fetching services: \(error.localizedDescription)")
             }
         }
+    
     
     func createReservation(barberShop: BarberShop, barber: Barber, service: ServiceBarber, date: Date, timeSlot: String) async {
             guard let userId = userSession?.uid else { return }

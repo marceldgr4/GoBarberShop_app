@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestoreSwift
-
+import FirebaseFirestore
 struct BarberShop: Identifiable, Codable, Hashable{
     @DocumentID var id: String?
     let name: String

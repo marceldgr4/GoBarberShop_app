@@ -7,17 +7,13 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import FirebaseFirestore
 
 struct Barber: Identifiable, Codable,Hashable{
     @DocumentID var id: String?
     let name: String
     let barbershopId: String
+    let barbershopReference: DocumentReference
     
-    func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
-        
-        static func ==(lhs: Barber, rhs: Barber) -> Bool {
-            return lhs.id == rhs.id
-        }
+    
 }

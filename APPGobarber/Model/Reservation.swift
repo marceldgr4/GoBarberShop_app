@@ -7,7 +7,7 @@
 
 import Foundation
 import FirebaseFirestoreSwift
-
+import FirebaseFirestore
 struct Reservation: Identifiable, Codable{
     @DocumentID var id: String?
     let userId: String
