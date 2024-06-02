@@ -2,17 +2,20 @@ import SwiftUI
 
 struct ReservationView: View {
     @EnvironmentObject var viewModel: ReservationViewModel
-
+    
     @State private var selectedBarberShop: BarberShop?
     @State private var selectedBarber: Barber?
     @State private var selectedService: ServiceBarber?
     @State private var selectedDate = Date()
     @State private var selectedTimeSlot: String?
-
+    
+    @State private var showAlert = false
+    @State private var navigateToHome = false
+    
     var body: some View {
         NavigationView {
             Form {
-// Barbershop selection
+                // Barbershop selection
                 Section(header: Text("Select Barbershop")) {
                     Picker("Barbershop", selection: $selectedBarberShop) {
                         Text("Select a barbershop").tag(nil as BarberShop?)
@@ -118,9 +121,19 @@ struct ReservationView: View {
                 await viewModel.loadData()
             }
         }
-    }
+        
+        .alert(isPresented: $showAlert) {
+                    Alert(title: Text("Notification"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK"), action: {
+                        // Activar la navegación de regreso a HomeView
+                        navigateToHome = true
+                    }))
+                }
+                .background(
+                    // Navegar de vuelta a HomeView cuando navigateToHome es true
+                    NavigationLink(destination: HomeView(), isActive: $navigateToHome) { EmptyView() }
+                )
+            }
 }
-   
 
 struct ReservationView_Previews: PreviewProvider {
     static var previews: some View {

@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		470307CD2C0CE15100B667DC /* ReservationListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307CC2C0CE15100B667DC /* ReservationListView.swift */; };
+		470307CF2C0CF55C00B667DC /* RebookReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307CE2C0CF55C00B667DC /* RebookReservationView.swift */; };
+		470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D02C0CFBDC00B667DC /* DateFormatter.swift */; };
+		470307D62C0D2EB400B667DC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D52C0D2EB400B667DC /* HistoryView.swift */; };
+		473EF5F72C057EB5006B2750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473EF5F62C057EB5006B2750 /* User.swift */; };
 		475664222C00138A002E5E56 /* APPGobarberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664212C00138A002E5E56 /* APPGobarberApp.swift */; };
 		475664242C00138A002E5E56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664232C00138A002E5E56 /* ContentView.swift */; };
 		475664262C001391002E5E56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475664252C001391002E5E56 /* Assets.xcassets */; };
@@ -43,7 +48,6 @@
 		475664712C0017BB002E5E56 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664702C0017BB002E5E56 /* RegistrationView.swift */; };
 		475664742C001817002E5E56 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664732C001817002E5E56 /* InputView.swift */; };
 		475664762C001820002E5E56 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664752C001820002E5E56 /* SettingRowView.swift */; };
-		4756647A2C001863002E5E56 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664792C001862002E5E56 /* User.swift */; };
 		475664802C001CCE002E5E56 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4756647F2C001CCE002E5E56 /* HomeView.swift */; };
 		475664822C001D2A002E5E56 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664812C001D2A002E5E56 /* MapView.swift */; };
 		475664842C001E2B002E5E56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 475664832C001E2A002E5E56 /* GoogleService-Info.plist */; };
@@ -65,6 +69,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		470307CC2C0CE15100B667DC /* ReservationListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationListView.swift; sourceTree = "<group>"; };
+		470307CE2C0CF55C00B667DC /* RebookReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RebookReservationView.swift; sourceTree = "<group>"; };
+		470307D02C0CFBDC00B667DC /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
+		470307D52C0D2EB400B667DC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		473EF5F62C057EB5006B2750 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		4756641E2C00138A002E5E56 /* APPGobarber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APPGobarber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475664212C00138A002E5E56 /* APPGobarberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPGobarberApp.swift; sourceTree = "<group>"; };
 		475664232C00138A002E5E56 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -74,7 +83,6 @@
 		475664702C0017BB002E5E56 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
 		475664732C001817002E5E56 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputView.swift; path = ../../../../../GobarberApp/GobarberApp/View/SettingView/InputView.swift; sourceTree = "<group>"; };
 		475664752C001820002E5E56 /* SettingRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingRowView.swift; path = ../../../../../GobarberApp/GobarberApp/View/SettingView/SettingRowView.swift; sourceTree = "<group>"; };
-		475664792C001862002E5E56 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = ../../../../GobarberApp/GobarberApp/Model/User.swift; sourceTree = "<group>"; };
 		4756647F2C001CCE002E5E56 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		475664812C001D2A002E5E56 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		475664832C001E2A002E5E56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -134,6 +142,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		470307D42C0D2E9500B667DC /* Histrory */ = {
+			isa = PBXGroup;
+			children = (
+				470307D52C0D2EB400B667DC /* HistoryView.swift */,
+			);
+			path = Histrory;
+			sourceTree = "<group>";
+		};
+		470307D72C0D300300B667DC /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				4756646E2C00175B002E5E56 /* LoginView.swift */,
+				475664702C0017BB002E5E56 /* RegistrationView.swift */,
+				47F136872C00482D00C4EEE5 /* PasswordRecoveryView.swift */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
 		475664152C00138A002E5E56 = {
 			isa = PBXGroup;
 			children = (
@@ -177,14 +203,13 @@
 		4756646A2C0016CF002E5E56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				470307D72C0D300300B667DC /* Session */,
+				470307D42C0D2E9500B667DC /* Histrory */,
 				4783AD342C010B64009B911E /* Reservation */,
 				4756647E2C001C9D002E5E56 /* Maps */,
 				4756647B2C0018EB002E5E56 /* Perfil */,
 				475664722C0017E5002E5E56 /* SettingView */,
-				4756646E2C00175B002E5E56 /* LoginView.swift */,
-				475664702C0017BB002E5E56 /* RegistrationView.swift */,
 				4756647F2C001CCE002E5E56 /* HomeView.swift */,
-				47F136872C00482D00C4EEE5 /* PasswordRecoveryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -192,11 +217,12 @@
 		4756646B2C0016D9002E5E56 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				475664792C001862002E5E56 /* User.swift */,
 				4783AD2A2C0102B7009B911E /* BarberShop.swift */,
 				4783AD2C2C01043E009B911E /* Barber.swift */,
 				4783AD2E2C010A74009B911E /* ServiceBarber.swift */,
 				4783AD302C010AD7009B911E /* Reservation.swift */,
+				473EF5F62C057EB5006B2750 /* User.swift */,
+				470307D02C0CFBDC00B667DC /* DateFormatter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -247,6 +273,8 @@
 			isa = PBXGroup;
 			children = (
 				476459CA2C02EB5100D325AA /* ReservationView.swift */,
+				470307CC2C0CE15100B667DC /* ReservationListView.swift */,
+				470307CE2C0CF55C00B667DC /* RebookReservationView.swift */,
 			);
 			path = Reservation;
 			sourceTree = "<group>";
@@ -370,23 +398,27 @@
 			files = (
 				47B5EE6C2C03AD9D00767AD1 /* AuthViewModel.swift in Sources */,
 				47B5EE702C03ADCA00767AD1 /* PerfilView.swift in Sources */,
+				470307CF2C0CF55C00B667DC /* RebookReservationView.swift in Sources */,
 				4756646F2C00175B002E5E56 /* LoginView.swift in Sources */,
 				4783AD362C010D7E009B911E /* ResevartionViewModel.swift in Sources */,
 				476459CB2C02EB5100D325AA /* ReservationView.swift in Sources */,
+				470307D62C0D2EB400B667DC /* HistoryView.swift in Sources */,
 				4783AD2B2C0102B7009B911E /* BarberShop.swift in Sources */,
 				475664242C00138A002E5E56 /* ContentView.swift in Sources */,
 				475664762C001820002E5E56 /* SettingRowView.swift in Sources */,
 				475664822C001D2A002E5E56 /* MapView.swift in Sources */,
+				470307CD2C0CE15100B667DC /* ReservationListView.swift in Sources */,
 				475664802C001CCE002E5E56 /* HomeView.swift in Sources */,
 				47F1368B2C00546100C4EEE5 /* UserService.swift in Sources */,
 				47F136882C00482D00C4EEE5 /* PasswordRecoveryView.swift in Sources */,
 				4783AD2F2C010A74009B911E /* ServiceBarber.swift in Sources */,
 				4783AD312C010AD7009B911E /* Reservation.swift in Sources */,
+				470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */,
 				4783AD2D2C01043E009B911E /* Barber.swift in Sources */,
-				4756647A2C001863002E5E56 /* User.swift in Sources */,
 				475664742C001817002E5E56 /* InputView.swift in Sources */,
 				475664222C00138A002E5E56 /* APPGobarberApp.swift in Sources */,
 				475664712C0017BB002E5E56 /* RegistrationView.swift in Sources */,
+				473EF5F72C057EB5006B2750 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

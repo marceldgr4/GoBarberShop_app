@@ -9,11 +9,23 @@ import Foundation
 import FirebaseFirestoreSwift
 import FirebaseFirestore
 struct Reservation: Identifiable, Codable{
+   
     @DocumentID var id: String?
     let userId: String
     let barberShopId:String
     let barberId: String
     let serviceId: String
     let date:Date
+    let status: ReservationStatus
     let timeSlot: String
+    
+    enum ReservationStatus: String, Codable {
+            case Activo
+            case Completado
+            case CanceladoPorUser
+            case CanceladoPorBarbershop
+        }
+    
+   
+    
 }

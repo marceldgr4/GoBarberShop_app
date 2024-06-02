@@ -24,6 +24,16 @@ class ReservationViewModel: ObservableObject {
     @Published var selectedBarber: Barber?
     @Published var selectedServices: ServiceBarber?
     @Published var selectedTime: Date = Date()
+    
+    @Published var reservations: [Reservation] = []
+    @Published var userReservations: [Reservation] = []
+    @Published var completedOrCancelledReservations: [Reservation] = []
+   
+    @Published var alertMessage: String = ""
+    @Published var showAlert: Bool = false
+    
+    private let db = Firestore.firestore()
+
 
     init() {
         self.userSession = Auth.auth().currentUser
@@ -32,6 +42,7 @@ class ReservationViewModel: ObservableObject {
             await loadData()
             await fetchBarbershops()
             await fetchServices()
+            await fetchUserReservations()
         }
     }
     
@@ -87,36 +98,155 @@ class ReservationViewModel: ObservableObject {
     
     
     func createReservation(barberShop: BarberShop, barber: Barber, service: ServiceBarber, date: Date, timeSlot: String) async {
+        guard let userId = userSession?.uid else { return }
+
+        // Verificar si el barbero ya tiene una reserva en el mismo horario
+        let snapshot = try? await Firestore.firestore().collection("reservations")
+            .whereField("barberId", isEqualTo: barber.id!)
+            .whereField("date", isEqualTo: date)
+            .whereField("timeSlot", isEqualTo: timeSlot)
+            .getDocuments()
+        
+        if let documents = snapshot?.documents, !documents.isEmpty {
+            // El barbero no está disponible en el horario seleccionado
+            showAlert = true
+            alertMessage = "El barbero no está disponible a esa hora, por favor seleccione otra hora."
+            return
+        }
+
+        // Verificar el límite de citas para el barbero en este día
+        let reservationsSnapshot = try? await Firestore.firestore().collection("reservations")
+            .whereField("barberId", isEqualTo: barber.id!)
+            .whereField("date", isEqualTo: date)
+            .getDocuments()
+        
+        if let reservationsCount = reservationsSnapshot?.documents.count, reservationsCount >= 10 {
+            // El barbero ha alcanzado el límite de citas para este día
+            showAlert = true
+            alertMessage = "El barbero ha alcanzado el límite de citas para este día. Por favor, seleccione otro día u otro barbero."
+            return
+        }
+
+        // Crear la reserva si el horario y el límite de citas están disponibles
+        let reservation = Reservation(id: UUID().uuidString, userId: userId, barberShopId: barberShop.id!, barberId: barber.id!, serviceId: service.id!, date: date, status: .Activo, timeSlot: timeSlot)
+        if let encodedReservation = try? Firestore.Encoder().encode(reservation) {
+            try? await Firestore.firestore().collection("reservations").document(reservation.id!).setData(encodedReservation)
+            // Reserva creada con éxito, mostrar mensaje de confirmación
+            showAlert = true
+            alertMessage = "Tu reserva ha sido creada con éxito."
+        } else {
+            showAlert = true
+            alertMessage = "Error al crear la reserva. Inténtelo de nuevo."
+        }
+    }
+    
+    func fetchUserReservations() async {
             guard let userId = userSession?.uid else { return }
-            let reservation = Reservation(userId: userId, barberShopId: barberShop.id!, barberId: barber.id!, serviceId: service.id!, date: date, timeSlot: timeSlot)
+            let snapshot = try? await Firestore.firestore().collection("reservations")
+                .whereField("userId", isEqualTo: userId)
+                .getDocuments()
+            
+            self.userReservations = snapshot?.documents.compactMap { try? $0.data(as: Reservation.self) } ?? []
+        }
 
-            do {
-                let encodedReservation = try Firestore.Encoder().encode(reservation)
-                try await Firestore.firestore().collection("reservations").document().setData(encodedReservation)
-            } catch {
-                print("Error creating reservation: \(error.localizedDescription)")
+    func updateReservationStatus(reservationId: String, status: Reservation.ReservationStatus) async {
+            try? await Firestore.firestore().collection("reservations").document(reservationId).updateData(["status": status.rawValue])
+            await fetchUserReservations() // refresh reservations
+        }
+        
+        
+        
+        func canModifyReservation(reservation: Reservation) -> Bool {
+            let timeInterval = reservation.date.timeIntervalSince(Date())
+            return timeInterval > 3600 // more than 1 hour left
+        }
+    
+    func rebookReservation(reservation: Reservation, newDate: Date, newTimeSlot: String) async {
+            guard let userId = userSession?.uid else { return }
+
+            // Verificar si el barbero ya tiene una reserva en el mismo horario
+            let snapshot = try? await Firestore.firestore().collection("reservations")
+                .whereField("barberId", isEqualTo: reservation.barberId)
+                .whereField("date", isEqualTo: newDate)
+                .whereField("timeSlot", isEqualTo: newTimeSlot)
+                .getDocuments()
+            
+            if let documents = snapshot?.documents, !documents.isEmpty {
+                // El barbero no está disponible en el horario seleccionado
+                showAlert = true
+                alertMessage = "El barbero no está disponible a esa hora, por favor seleccione otra hora."
+                return
+            }
+
+            // Actualizar la reserva si el horario está disponible
+        let updatedReservation = Reservation(id: reservation.id, userId: userId, barberShopId: reservation.barberShopId, barberId: reservation.barberId, serviceId: reservation.serviceId, date: newDate, status: .Activo, timeSlot: newTimeSlot)
+            if let encodedReservation = try? Firestore.Encoder().encode(updatedReservation) {
+                try? await Firestore.firestore().collection("reservations").document(updatedReservation.id!).setData(encodedReservation)
+                // Reserva reprogramada con éxito, mostrar mensaje de confirmación
+                showAlert = true
+                alertMessage = "Tu reserva ha sido reprogramada con éxito."
+                await fetchUserReservations()
+            } else {
+                showAlert = true
+                alertMessage = "Error al reprogramar la reserva. Inténtelo de nuevo."
             }
         }
+    
+    func fetchCompletedOrCancelledReservations() async {
+            guard let userId = userSession?.uid else { return }
+            let snapshot = try? await Firestore.firestore().collection("reservations")
+                .whereField("userId", isEqualTo: userId)
+                .whereField("status", in: ["completed", "cancelled"])
+                .getDocuments()
+            
+            self.completedOrCancelledReservations = snapshot?.documents.compactMap { try? $0.data(as: Reservation.self) } ?? []
+        }
+    
+    func cancelReservation(reservation: Reservation) async {
+        let updatedReservation = Reservation(id: reservation.id, userId: reservation.userId, barberShopId: reservation.barberShopId, barberId: reservation.barberId, serviceId: reservation.serviceId, date: reservation.date, status: .CanceladoPorUser, timeSlot: reservation.timeSlot)
+            if let encodedReservation = try? Firestore.Encoder().encode(updatedReservation) {
+                try? await Firestore.firestore().collection("reservations").document(updatedReservation.id!).setData(encodedReservation)
+                // Reserva cancelada con éxito, mostrar mensaje de confirmación
+                showAlert = true
+                alertMessage = "Tu reserva ha sido cancelada con éxito."
+                await fetchUserReservations()
+            } else {
+                showAlert = true
+                alertMessage = "Error al cancelar la reserva. Inténtelo de nuevo."
+            }
+        }
+    
     func fetchAvailableTimeSlots(for barberId: String, on date: Date) async {
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            let dateString = dateFormatter.string(from: date)
+        // Fetch all reservations for the barber on the given date
+        let snapshot = try? await db.collection("reservations")
+            .whereField("barberId", isEqualTo: barberId)
+            .whereField("date", isEqualTo: date)
+            .getDocuments()
 
-            do {
-                let snapshot = try await Firestore.firestore().collection("reservations")
-                    .whereField("barberId", isEqualTo: barberId)
-                    .whereField("date", isEqualTo: dateString)
-                    .getDocuments()
+        if let documents = snapshot?.documents {
+            let existingReservations = documents.compactMap { try? $0.data(as: Reservation.self) }
 
-                let reservedTimeSlots = snapshot.documents.compactMap { $0["timeSlot"] as? String }
-                let allTimeSlots = ["09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00"]
+            // Calculate the number of reservations for the barber on the given date
+            let totalReservations = existingReservations.count
 
-                self.availableTimeSlots = allTimeSlots.filter { !reservedTimeSlots.contains($0) }
-            } catch {
-                print("Error fetching available time slots: \(error.localizedDescription)")
+            // Check if the barber has reached the maximum number of reservations (10)
+            if totalReservations >= 10 {
+                // Barber has reached the maximum number of reservations, return empty array
+                availableTimeSlots = []
+                alertMessage = "El barbero ha alcanzado el número máximo de reservas para el día de hoy."
+                showAlert = true
+                return
             }
-        }
 
+            // Calculate available time slots
+            let allTimeSlots = ["9:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "1:00 PM", "2:00 PM", "3:00 PM", "4:00 PM", "5:00 PM"]
+            let reservedTimeSlots = existingReservations.map { $0.timeSlot }
+            availableTimeSlots = allTimeSlots.filter { !reservedTimeSlots.contains($0) }
+        }
+    }
+    var completedReservations: [Reservation] = []
+    var cancelledReservations: [Reservation] = []
+        
     
     
 }

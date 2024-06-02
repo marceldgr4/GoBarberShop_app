@@ -13,7 +13,8 @@ struct ContentView: View {
         Group{
                    if viewModel.userSession != nil{
                       //PerfilView()// cambiar despues home
-                       ReservationView()
+                       //ReservationView()
+                       HomeView()
                    }else{
                        LoginView()
                    }
@@ -23,4 +24,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
+        .environmentObject(AuthViewModel())
 }

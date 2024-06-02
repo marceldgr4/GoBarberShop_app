@@ -86,15 +86,10 @@ struct LoginView: View {
                     .font(.system(size: 14))
                 }
 
-                // Navigate to PerfilView when logged in
-                NavigationLink(destination: //PerfilView().navigationBarBackButtonHidden(true), isActive: $isLoggedIn) {
-                               ReservationView().navigationBarBackButtonHidden(true), isActive:$isLoggedIn){
+                // Navigate to HomeView when logged in
+                NavigationLink(destination: HomeView().navigationBarBackButtonHidden(true), isActive: $isLoggedIn) {
                     EmptyView()
                 }
-            }
-            .navigationDestination(isPresented: $isLoggedIn) {
-                PerfilView()
-                    .navigationBarBackButtonHidden(true)
             }
         }
     }

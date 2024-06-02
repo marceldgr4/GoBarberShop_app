@@ -1,18 +1,40 @@
-//
-//  HomeView.swift
-//  APPGobarber
-//
-//  Created by MARCEL DIAZ GRANADOS ROBAYO on 23/05/24.
-//
-
 import SwiftUI
 
 struct HomeView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationView {
+            VStack {
+                Text("Bienvenido a la Barbería")
+                    .font(.largeTitle)
+                    .padding()
+
+                NavigationLink(destination: ReservationView()) {
+                    Text("Hacer una Reserva")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: PerfilView()) {
+                    Text("Ver Perfil")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.green)
+                        .cornerRadius(10)
+                }
+                .padding()
+
+                Spacer()
+            }
+            .navigationTitle("Home")
+        }
     }
 }
 
-#Preview {
-    HomeView()
+struct HomeView_Previews: PreviewProvider {
+    static var previews: some View {
+        HomeView()
+    }
 }

@@ -9,24 +9,13 @@ import Foundation
 
 struct User: Identifiable, Codable {
     let id: String
-    let name: String
-    let firstName: String
+    var name: String
+    var firstName: String
     let email: String
-    //let role: UserRole?
-   /*
-    enum UserRole: String, Codable {
-        case Admin
-        case barber
-        case user
-    }
-    
-    init(id: String, name: String, firstName: String, email: String? = nil, role: UserRole? = nil) {
-        self.id = id
-        self.email = email
-        self.name = name
-        self.firstName = firstName
-        self.role = role
-    }*/
+    let userType: String
+    var phone: String?
+    var address: String?
+  
     
     var initials: String {
         let formatter = PersonNameComponentsFormatter()
@@ -39,5 +28,5 @@ struct User: Identifiable, Codable {
 }
 
 extension User {
-    static var MOCK_USER = User(id: NSUUID().uuidString, name: "Name", firstName: "FirstName", email: "example@email.com")
+    static var MOCK_USER = User(id: NSUUID().uuidString, name: "Name", firstName: "FirstName", email: "example@email.com", userType: "Usuario Normal")
 }
