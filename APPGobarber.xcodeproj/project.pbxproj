@@ -12,6 +12,8 @@
 		470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D02C0CFBDC00B667DC /* DateFormatter.swift */; };
 		470307D62C0D2EB400B667DC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D52C0D2EB400B667DC /* HistoryView.swift */; };
 		473EF5F72C057EB5006B2750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473EF5F62C057EB5006B2750 /* User.swift */; };
+		475633E62C0EE44A00EF80AC /* BarberiaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475633E52C0EE44A00EF80AC /* BarberiaView.swift */; };
+		475633E82C0EE45800EF80AC /* BarberoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475633E72C0EE45800EF80AC /* BarberoView.swift */; };
 		475664222C00138A002E5E56 /* APPGobarberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664212C00138A002E5E56 /* APPGobarberApp.swift */; };
 		475664242C00138A002E5E56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664232C00138A002E5E56 /* ContentView.swift */; };
 		475664262C001391002E5E56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475664252C001391002E5E56 /* Assets.xcassets */; };
@@ -74,6 +76,8 @@
 		470307D02C0CFBDC00B667DC /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		470307D52C0D2EB400B667DC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		473EF5F62C057EB5006B2750 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		475633E52C0EE44A00EF80AC /* BarberiaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberiaView.swift; sourceTree = "<group>"; };
+		475633E72C0EE45800EF80AC /* BarberoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberoView.swift; sourceTree = "<group>"; };
 		4756641E2C00138A002E5E56 /* APPGobarber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APPGobarber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475664212C00138A002E5E56 /* APPGobarberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPGobarberApp.swift; sourceTree = "<group>"; };
 		475664232C00138A002E5E56 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -210,6 +214,8 @@
 				4756647B2C0018EB002E5E56 /* Perfil */,
 				475664722C0017E5002E5E56 /* SettingView */,
 				4756647F2C001CCE002E5E56 /* HomeView.swift */,
+				475633E52C0EE44A00EF80AC /* BarberiaView.swift */,
+				475633E72C0EE45800EF80AC /* BarberoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -412,7 +418,9 @@
 				47F1368B2C00546100C4EEE5 /* UserService.swift in Sources */,
 				47F136882C00482D00C4EEE5 /* PasswordRecoveryView.swift in Sources */,
 				4783AD2F2C010A74009B911E /* ServiceBarber.swift in Sources */,
+				475633E62C0EE44A00EF80AC /* BarberiaView.swift in Sources */,
 				4783AD312C010AD7009B911E /* Reservation.swift in Sources */,
+				475633E82C0EE45800EF80AC /* BarberoView.swift in Sources */,
 				470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */,
 				4783AD2D2C01043E009B911E /* Barber.swift in Sources */,
 				475664742C001817002E5E56 /* InputView.swift in Sources */,

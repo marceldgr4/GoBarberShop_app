@@ -4,7 +4,7 @@ struct HomeView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Bienvenido a la Barbería")
+                Text("Bienvenido a GoBarber")
                     .font(.largeTitle)
                     .padding()
 
@@ -13,6 +13,33 @@ struct HomeView: View {
                         .foregroundColor(.white)
                         .padding()
                         .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: ReservationListView()) {
+                    Text("Reserva")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: BarberiaView()) {
+                    Text(" Barberias")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.gray)
+                        .cornerRadius(10)
+                }
+                .padding()
+                
+                NavigationLink(destination: BarberoView()) {
+                    Text(" Barberos")
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.gray)
                         .cornerRadius(10)
                 }
                 .padding()

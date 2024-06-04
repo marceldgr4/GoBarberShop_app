@@ -1,10 +1,3 @@
-//
-//  RebookReservationView.swift
-//  APPGobarber
-//
-//  Created by MARCEL DIAZ GRANADOS ROBAYO on 2/06/24.
-//
-
 import SwiftUI
 
 struct RebookReservationView: View {
@@ -13,23 +6,26 @@ struct RebookReservationView: View {
     
     @State private var selectedDate: Date = Date()
     @State private var selectedTimeSlot: String?
-    
+    @State private var showCancelConfirmation = false
+
     var body: some View {
         Form {
-            Section(header: Text("Reservation Details")) {
-                Text("Service: \(reservation.serviceId)")
-                Text("Original Date: \(reservation.date, formatter: DateFormatter.shortDate)")
-                Text("Original Time: \(reservation.timeSlot)")
-                Text("Status: \(reservation.status.rawValue.capitalized)")
+            Section(header: Text("Detalles de la Reserva")) {
+                Text("Service: \(reservation.serviceName)")
+                Text("BarberShop:\(reservation.barberShopName)")
+                Text("Barbero: \(reservation.barberName)")
+                Text("Fecha Original: \(reservation.date, formatter: DateFormatter.shortDate)")
+                Text("Hora Original: \(reservation.timeSlot)")
+                Text("Estado: \(reservation.status.rawValue.capitalized)")
             }
             
-            Section(header: Text("Select New Date")) {
-                DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
+            Section(header: Text("Seleccionar Nueva Fecha")) {
+                DatePicker("Fecha", selection: $selectedDate, displayedComponents: .date)
             }
             
-            Section(header: Text("Select New Time Slot")) {
-                Picker("Time Slot", selection: $selectedTimeSlot) {
-                    Text("Select a time slot").tag(nil as String?)
+            Section(header: Text("Seleccionar Nueva Hora")) {
+                Picker("Hora", selection: $selectedTimeSlot) {
+                    Text("Selecciona una hora").tag(nil as String?)
                     ForEach(viewModel.availableTimeSlots, id: \.self) { timeSlot in
                         Text(timeSlot).tag(timeSlot as String?)
                     }
@@ -47,7 +43,7 @@ struct RebookReservationView: View {
                     await viewModel.rebookReservation(reservation: reservation, newDate: selectedDate, newTimeSlot: timeSlot)
                 }
             }) {
-                Text("Rebook")
+                Text("Reprogramar")
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding()
                     .background(Color.blue)
@@ -55,10 +51,35 @@ struct RebookReservationView: View {
                     .cornerRadius(8)
             }
             .disabled(selectedTimeSlot == nil)
+            
+            if reservation.status == .Activo {
+                Button(action: {
+                    showCancelConfirmation = true
+                }) {
+                    Text("Cancelar Reserva")
+                        .frame(maxWidth: .infinity, alignment: .center)
+                        .padding()
+                        .background(Color.red)
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+                .alert(isPresented: $showCancelConfirmation) {
+                    Alert(
+                        title: Text("Confirmación"),
+                        message: Text("¿Estás seguro de que deseas cancelar esta reserva?"),
+                        primaryButton: .destructive(Text("Sí")) {
+                            Task {
+                                await viewModel.cancelReservation(reservation: reservation)
+                            }
+                        },
+                        secondaryButton: .cancel(Text("No"))
+                    )
+                }
+            }
         }
-        .navigationTitle("Rebook Reservation")
+        .navigationTitle("Reprogramar Reserva")
         .alert(isPresented: $viewModel.showAlert) {
-            Alert(title: Text("Notification"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text("Notificación"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
         }
         .onAppear {
             Task {
@@ -70,7 +91,7 @@ struct RebookReservationView: View {
 
 struct RebookReservationView_Previews: PreviewProvider {
     static var previews: some View {
-        RebookReservationView(reservation: Reservation(id: "123", userId: "user123", barberShopId: "barberShop123", barberId: "barber123", serviceId: "service123", date: Date(), status: .Activo, timeSlot: "10:00 AM"))
+        RebookReservationView(reservation: Reservation(id: "123", userId: "user123", barberShopId: "barberShop123", barberId: "barber123", serviceId: "service123", date: Date(), status: .Activo, timeSlot: "10:00 AM",barberShopName:"elbarber",serviceName:"complet", barberName: "juan"))
             .environmentObject(ReservationViewModel())
     }
 }

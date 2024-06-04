@@ -43,6 +43,7 @@ class ReservationViewModel: ObservableObject {
             await fetchBarbershops()
             await fetchServices()
             await fetchUserReservations()
+            await fetchCompletedOrCancelledReservations()
         }
     }
     
@@ -128,7 +129,15 @@ class ReservationViewModel: ObservableObject {
         }
 
         // Crear la reserva si el horario y el límite de citas están disponibles
-        let reservation = Reservation(id: UUID().uuidString, userId: userId, barberShopId: barberShop.id!, barberId: barber.id!, serviceId: service.id!, date: date, status: .Activo, timeSlot: timeSlot)
+        let reservation = Reservation(id: UUID().uuidString, userId: userId, 
+                                      barberShopId: barberShop.id!,
+                                      barberId: barber.id!,
+                                      serviceId: service.id!,
+                                      date: date, status: .Activo,
+                                      timeSlot: timeSlot,
+                                      barberShopName: barberShop.name,
+                                      serviceName: service.name,
+                                      barberName: barber.name)
         if let encodedReservation = try? Firestore.Encoder().encode(reservation) {
             try? await Firestore.firestore().collection("reservations").document(reservation.id!).setData(encodedReservation)
             // Reserva creada con éxito, mostrar mensaje de confirmación
@@ -179,7 +188,16 @@ class ReservationViewModel: ObservableObject {
             }
 
             // Actualizar la reserva si el horario está disponible
-        let updatedReservation = Reservation(id: reservation.id, userId: userId, barberShopId: reservation.barberShopId, barberId: reservation.barberId, serviceId: reservation.serviceId, date: newDate, status: .Activo, timeSlot: newTimeSlot)
+        let updatedReservation = Reservation(id: reservation.id, 
+                                             userId: userId,
+                                             barberShopId: reservation.barberShopId,
+                                             barberId: reservation.barberId,
+                                             serviceId: reservation.serviceId,
+                                             date: newDate, status: .Activo,
+                                             timeSlot: newTimeSlot,
+                                             barberShopName: reservation.barberShopName,
+                                             serviceName: reservation.serviceName, 
+                                             barberName: reservation.barberName)
             if let encodedReservation = try? Firestore.Encoder().encode(updatedReservation) {
                 try? await Firestore.firestore().collection("reservations").document(updatedReservation.id!).setData(encodedReservation)
                 // Reserva reprogramada con éxito, mostrar mensaje de confirmación
@@ -203,18 +221,28 @@ class ReservationViewModel: ObservableObject {
         }
     
     func cancelReservation(reservation: Reservation) async {
-        let updatedReservation = Reservation(id: reservation.id, userId: reservation.userId, barberShopId: reservation.barberShopId, barberId: reservation.barberId, serviceId: reservation.serviceId, date: reservation.date, status: .CanceladoPorUser, timeSlot: reservation.timeSlot)
-            if let encodedReservation = try? Firestore.Encoder().encode(updatedReservation) {
-                try? await Firestore.firestore().collection("reservations").document(updatedReservation.id!).setData(encodedReservation)
-                // Reserva cancelada con éxito, mostrar mensaje de confirmación
-                showAlert = true
-                alertMessage = "Tu reserva ha sido cancelada con éxito."
-                await fetchUserReservations()
-            } else {
-                showAlert = true
-                alertMessage = "Error al cancelar la reserva. Inténtelo de nuevo."
-            }
+        let updatedReservation = Reservation(id: reservation.id,
+                                             userId: reservation.userId,
+                                             barberShopId: reservation.barberShopId,
+                                             barberId: reservation.barberId,
+                                             serviceId: reservation.serviceId,
+                                             date: reservation.date,
+                                             status: .CanceladoPorUser,
+                                             timeSlot: reservation.timeSlot,
+                                             barberShopName: reservation.barberShopName,
+                                             serviceName: reservation.serviceName, 
+                                             barberName: reservation.barberName)
+        if let encodedReservation = try? Firestore.Encoder().encode(updatedReservation) {
+            try? await Firestore.firestore().collection("reservations").document(updatedReservation.id!).setData(encodedReservation)
+            showAlert = true
+            alertMessage = "Tu reserva ha sido cancelada con éxito."
+            // Eliminar la reserva cancelada de la lista de reservas del usuario
+            userReservations.removeAll { $0.id == reservation.id }
+        } else {
+            showAlert = true
+            alertMessage = "Error al cancelar la reserva. Inténtelo de nuevo."
         }
+    }
     
     func fetchAvailableTimeSlots(for barberId: String, on date: Date) async {
         // Fetch all reservations for the barber on the given date

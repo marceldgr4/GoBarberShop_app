@@ -19,11 +19,15 @@ struct Reservation: Identifiable, Codable{
     let status: ReservationStatus
     let timeSlot: String
     
+    let barberShopName: String
+    let serviceName: String
+    let barberName:String
+    
     enum ReservationStatus: String, Codable {
             case Activo
             case Completado
             case CanceladoPorUser
-            case CanceladoPorBarbershop
+            case Cancelado
         }
     
    
