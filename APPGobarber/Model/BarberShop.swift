@@ -12,12 +12,13 @@ struct BarberShop: Identifiable, Codable, Hashable{
     @DocumentID var id: String?
     let name: String
     let address: String
+    let location: String
+    let imageUrl: String? 
+   
+    let hours: String
+    let latitude: String
+    let longitude: String
     
-    func hash(into hasher: inout Hasher) {
-            hasher.combine(id)
-        }
-        
-        static func ==(lhs: BarberShop, rhs: BarberShop) -> Bool {
-            return lhs.id == rhs.id
-        }
+    
+   
     }

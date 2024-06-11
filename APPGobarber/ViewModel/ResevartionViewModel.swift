@@ -32,6 +32,10 @@ class ReservationViewModel: ObservableObject {
     @Published var alertMessage: String = ""
     @Published var showAlert: Bool = false
     
+    //@Published var serviceBarbers: [ServiceBarber] = []
+    @Published var isLoading = true
+    @Published var error: Error?
+    
     private let db = Firestore.firestore()
 
 
@@ -75,27 +79,7 @@ class ReservationViewModel: ObservableObject {
        }
    
     
-    func fetchServices() async {
-            do {
-                let snapshot = try await Firestore.firestore().collection("ServiceBarbers Collection").getDocuments()
-                print("Fetched \(snapshot.documents.count) services")
-                
-                self.services = snapshot.documents.compactMap { document in
-                    do {
-                        let service = try document.data(as: ServiceBarber.self)
-                        print("Fetched service: \(service)")
-                        return service
-                    } catch {
-                        print("Error decoding service: \(error)")
-                        return nil
-                    }
-                }
-                
-                print("Services array: \(self.services)")
-            } catch {
-                print("Error fetching services: \(error.localizedDescription)")
-            }
-        }
+   
     
     
     func createReservation(barberShop: BarberShop, barber: Barber, service: ServiceBarber, date: Date, timeSlot: String) async {
@@ -274,7 +258,46 @@ class ReservationViewModel: ObservableObject {
     }
     var completedReservations: [Reservation] = []
     var cancelledReservations: [Reservation] = []
-        
+     
+    
+    
+    
+    func addBarber(barber: Barber) {
+            do {
+                let _ = try Firestore.firestore().collection("Barbers Collection").addDocument(from: barber)
+                alertMessage = "Barbero agregado con éxito."
+                showAlert = true
+            } catch {
+                alertMessage = "Error al agregar el barbero: \(error.localizedDescription)"
+                showAlert = true
+            }
+        }
+    //----------------------
+    func fetchServices() async {
+        isLoading = true
+            do {
+                let snapshot = try await Firestore.firestore().collection("ServiceBarbers Collection").getDocuments()
+                print("Fetched \(snapshot.documents.count) services")
+                
+                self.services = snapshot.documents.compactMap { document in
+                    do {
+                        let service = try document.data(as: ServiceBarber.self)
+                        print("Fetched service: \(service)")
+                        return service
+                    } catch {
+                        print("Error decoding service: \(error)")
+                        return nil
+                    }
+                }
+                
+                print("Services array: \(self.services)")
+            } catch {
+                print("Error fetching services: \(error.localizedDescription)")
+            }
+        }
+    //---------------------
+    
+    
     
     
 }

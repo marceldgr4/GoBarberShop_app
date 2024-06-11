@@ -68,4 +68,3 @@ struct ReservationListView_Previews: PreviewProvider {
             .environmentObject(ReservationViewModel())
     }
 }
-// DateFormatter extension for formatting dates

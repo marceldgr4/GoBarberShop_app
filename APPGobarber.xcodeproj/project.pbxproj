@@ -11,9 +11,10 @@
 		470307CF2C0CF55C00B667DC /* RebookReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307CE2C0CF55C00B667DC /* RebookReservationView.swift */; };
 		470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D02C0CFBDC00B667DC /* DateFormatter.swift */; };
 		470307D62C0D2EB400B667DC /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470307D52C0D2EB400B667DC /* HistoryView.swift */; };
+		470F16002C137CC60026FA72 /* BarberShopViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 470F15FF2C137CC60026FA72 /* BarberShopViewModel.swift */; };
+		471BA3AF2C101F8200A0672F /* BarbershopDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471BA3AE2C101F8200A0672F /* BarbershopDetailView.swift */; };
 		473EF5F72C057EB5006B2750 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 473EF5F62C057EB5006B2750 /* User.swift */; };
-		475633E62C0EE44A00EF80AC /* BarberiaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475633E52C0EE44A00EF80AC /* BarberiaView.swift */; };
-		475633E82C0EE45800EF80AC /* BarberoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475633E72C0EE45800EF80AC /* BarberoView.swift */; };
+		475633E62C0EE44A00EF80AC /* BarberShopListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475633E52C0EE44A00EF80AC /* BarberShopListView.swift */; };
 		475664222C00138A002E5E56 /* APPGobarberApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664212C00138A002E5E56 /* APPGobarberApp.swift */; };
 		475664242C00138A002E5E56 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664232C00138A002E5E56 /* ContentView.swift */; };
 		475664262C001391002E5E56 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 475664252C001391002E5E56 /* Assets.xcassets */; };
@@ -51,7 +52,7 @@
 		475664742C001817002E5E56 /* InputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664732C001817002E5E56 /* InputView.swift */; };
 		475664762C001820002E5E56 /* SettingRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664752C001820002E5E56 /* SettingRowView.swift */; };
 		475664802C001CCE002E5E56 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4756647F2C001CCE002E5E56 /* HomeView.swift */; };
-		475664822C001D2A002E5E56 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664812C001D2A002E5E56 /* MapView.swift */; };
+		475664822C001D2A002E5E56 /* BarberShopMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475664812C001D2A002E5E56 /* BarberShopMapView.swift */; };
 		475664842C001E2B002E5E56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 475664832C001E2A002E5E56 /* GoogleService-Info.plist */; };
 		476459BE2C02D7B300D325AA /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 476459BD2C02D7B300D325AA /* FirebaseAnalytics */; };
 		476459C02C02D7B300D325AA /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 476459BF2C02D7B300D325AA /* FirebaseAnalyticsOnDeviceConversion */; };
@@ -59,11 +60,15 @@
 		476459C42C02D7B300D325AA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 476459C32C02D7B300D325AA /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		476459C62C02D7B300D325AA /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 476459C52C02D7B300D325AA /* FirebaseAppCheck */; };
 		476459CB2C02EB5100D325AA /* ReservationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476459CA2C02EB5100D325AA /* ReservationView.swift */; };
+		4768F40B2C12A484003F1FBC /* BarbersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4768F40A2C12A484003F1FBC /* BarbersListView.swift */; };
 		4783AD2B2C0102B7009B911E /* BarberShop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783AD2A2C0102B7009B911E /* BarberShop.swift */; };
 		4783AD2D2C01043E009B911E /* Barber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783AD2C2C01043E009B911E /* Barber.swift */; };
 		4783AD2F2C010A74009B911E /* ServiceBarber.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783AD2E2C010A74009B911E /* ServiceBarber.swift */; };
 		4783AD312C010AD7009B911E /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783AD302C010AD7009B911E /* Reservation.swift */; };
 		4783AD362C010D7E009B911E /* ResevartionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4783AD352C010D7E009B911E /* ResevartionViewModel.swift */; };
+		47853AE82C0FD36800542BD3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 47853AE72C0FD36800542BD3 /* Kingfisher */; };
+		47853AEA2C0FD43300542BD3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 47853AE92C0FD43300542BD3 /* Kingfisher */; };
+		47853AEC2C0FD46300542BD3 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 47853AEB2C0FD46300542BD3 /* Kingfisher */; };
 		47B5EE6C2C03AD9D00767AD1 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B5EE6B2C03AD9D00767AD1 /* AuthViewModel.swift */; };
 		47B5EE702C03ADCA00767AD1 /* PerfilView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47B5EE6F2C03ADC900767AD1 /* PerfilView.swift */; };
 		47F136882C00482D00C4EEE5 /* PasswordRecoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F136872C00482D00C4EEE5 /* PasswordRecoveryView.swift */; };
@@ -75,9 +80,10 @@
 		470307CE2C0CF55C00B667DC /* RebookReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RebookReservationView.swift; sourceTree = "<group>"; };
 		470307D02C0CFBDC00B667DC /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		470307D52C0D2EB400B667DC /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
+		470F15FF2C137CC60026FA72 /* BarberShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberShopViewModel.swift; sourceTree = "<group>"; };
+		471BA3AE2C101F8200A0672F /* BarbershopDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarbershopDetailView.swift; sourceTree = "<group>"; };
 		473EF5F62C057EB5006B2750 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
-		475633E52C0EE44A00EF80AC /* BarberiaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberiaView.swift; sourceTree = "<group>"; };
-		475633E72C0EE45800EF80AC /* BarberoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberoView.swift; sourceTree = "<group>"; };
+		475633E52C0EE44A00EF80AC /* BarberShopListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberShopListView.swift; sourceTree = "<group>"; };
 		4756641E2C00138A002E5E56 /* APPGobarber.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = APPGobarber.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		475664212C00138A002E5E56 /* APPGobarberApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APPGobarberApp.swift; sourceTree = "<group>"; };
 		475664232C00138A002E5E56 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -88,9 +94,10 @@
 		475664732C001817002E5E56 /* InputView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = InputView.swift; path = ../../../../../GobarberApp/GobarberApp/View/SettingView/InputView.swift; sourceTree = "<group>"; };
 		475664752C001820002E5E56 /* SettingRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingRowView.swift; path = ../../../../../GobarberApp/GobarberApp/View/SettingView/SettingRowView.swift; sourceTree = "<group>"; };
 		4756647F2C001CCE002E5E56 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		475664812C001D2A002E5E56 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		475664812C001D2A002E5E56 /* BarberShopMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberShopMapView.swift; sourceTree = "<group>"; };
 		475664832C001E2A002E5E56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		476459CA2C02EB5100D325AA /* ReservationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationView.swift; sourceTree = "<group>"; };
+		4768F40A2C12A484003F1FBC /* BarbersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarbersListView.swift; sourceTree = "<group>"; };
 		4783AD2A2C0102B7009B911E /* BarberShop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarberShop.swift; sourceTree = "<group>"; };
 		4783AD2C2C01043E009B911E /* Barber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barber.swift; sourceTree = "<group>"; };
 		4783AD2E2C010A74009B911E /* ServiceBarber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceBarber.swift; sourceTree = "<group>"; };
@@ -116,11 +123,14 @@
 				476459C22C02D7B300D325AA /* FirebaseAnalyticsSwift in Frameworks */,
 				476459C42C02D7B300D325AA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				4756645B2C001575002E5E56 /* FirebaseMLModelDownloader in Frameworks */,
+				47853AEA2C0FD43300542BD3 /* Kingfisher in Frameworks */,
 				476459C02C02D7B300D325AA /* FirebaseAnalyticsOnDeviceConversion in Frameworks */,
 				476459C62C02D7B300D325AA /* FirebaseAppCheck in Frameworks */,
+				47853AEC2C0FD46300542BD3 /* Kingfisher in Frameworks */,
 				4756644F2C001575002E5E56 /* FirebaseFirestoreSwift in Frameworks */,
 				4756643B2C001575002E5E56 /* FirebaseAppCheck in Frameworks */,
 				475664392C001575002E5E56 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				47853AE82C0FD36800542BD3 /* Kingfisher in Frameworks */,
 				4756643F2C001575002E5E56 /* FirebaseAuth in Frameworks */,
 				475664432C001575002E5E56 /* FirebaseCrashlytics in Frameworks */,
 				475664632C001575002E5E56 /* FirebaseRemoteConfigSwift in Frameworks */,
@@ -207,6 +217,8 @@
 		4756646A2C0016CF002E5E56 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				47AC305B2C10C74C00674C9F /* Barber */,
+				47853AED2C0FE91A00542BD3 /* BarberShop */,
 				470307D72C0D300300B667DC /* Session */,
 				470307D42C0D2E9500B667DC /* Histrory */,
 				4783AD342C010B64009B911E /* Reservation */,
@@ -214,8 +226,6 @@
 				4756647B2C0018EB002E5E56 /* Perfil */,
 				475664722C0017E5002E5E56 /* SettingView */,
 				4756647F2C001CCE002E5E56 /* HomeView.swift */,
-				475633E52C0EE44A00EF80AC /* BarberiaView.swift */,
-				475633E72C0EE45800EF80AC /* BarberoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,6 +248,7 @@
 			children = (
 				47B5EE6B2C03AD9D00767AD1 /* AuthViewModel.swift */,
 				4783AD352C010D7E009B911E /* ResevartionViewModel.swift */,
+				470F15FF2C137CC60026FA72 /* BarberShopViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -270,7 +281,7 @@
 		4756647E2C001C9D002E5E56 /* Maps */ = {
 			isa = PBXGroup;
 			children = (
-				475664812C001D2A002E5E56 /* MapView.swift */,
+				475664812C001D2A002E5E56 /* BarberShopMapView.swift */,
 			);
 			path = Maps;
 			sourceTree = "<group>";
@@ -283,6 +294,23 @@
 				470307CE2C0CF55C00B667DC /* RebookReservationView.swift */,
 			);
 			path = Reservation;
+			sourceTree = "<group>";
+		};
+		47853AED2C0FE91A00542BD3 /* BarberShop */ = {
+			isa = PBXGroup;
+			children = (
+				475633E52C0EE44A00EF80AC /* BarberShopListView.swift */,
+				471BA3AE2C101F8200A0672F /* BarbershopDetailView.swift */,
+			);
+			path = BarberShop;
+			sourceTree = "<group>";
+		};
+		47AC305B2C10C74C00674C9F /* Barber */ = {
+			isa = PBXGroup;
+			children = (
+				4768F40A2C12A484003F1FBC /* BarbersListView.swift */,
+			);
+			path = Barber;
 			sourceTree = "<group>";
 		};
 		47F136892C00543300C4EEE5 /* Service */ = {
@@ -343,6 +371,9 @@
 				476459C12C02D7B300D325AA /* FirebaseAnalyticsSwift */,
 				476459C32C02D7B300D325AA /* FirebaseAnalyticsWithoutAdIdSupport */,
 				476459C52C02D7B300D325AA /* FirebaseAppCheck */,
+				47853AE72C0FD36800542BD3 /* Kingfisher */,
+				47853AE92C0FD43300542BD3 /* Kingfisher */,
+				47853AEB2C0FD46300542BD3 /* Kingfisher */,
 			);
 			productName = APPGobarber;
 			productReference = 4756641E2C00138A002E5E56 /* APPGobarber.app */;
@@ -374,6 +405,7 @@
 			mainGroup = 475664152C00138A002E5E56;
 			packageReferences = (
 				475664312C001575002E5E56 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				47853AE62C0FD36800542BD3 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 			);
 			productRefGroup = 4756641F2C00138A002E5E56 /* Products */;
 			projectDirPath = "";
@@ -405,6 +437,8 @@
 				47B5EE6C2C03AD9D00767AD1 /* AuthViewModel.swift in Sources */,
 				47B5EE702C03ADCA00767AD1 /* PerfilView.swift in Sources */,
 				470307CF2C0CF55C00B667DC /* RebookReservationView.swift in Sources */,
+				4768F40B2C12A484003F1FBC /* BarbersListView.swift in Sources */,
+				471BA3AF2C101F8200A0672F /* BarbershopDetailView.swift in Sources */,
 				4756646F2C00175B002E5E56 /* LoginView.swift in Sources */,
 				4783AD362C010D7E009B911E /* ResevartionViewModel.swift in Sources */,
 				476459CB2C02EB5100D325AA /* ReservationView.swift in Sources */,
@@ -412,15 +446,15 @@
 				4783AD2B2C0102B7009B911E /* BarberShop.swift in Sources */,
 				475664242C00138A002E5E56 /* ContentView.swift in Sources */,
 				475664762C001820002E5E56 /* SettingRowView.swift in Sources */,
-				475664822C001D2A002E5E56 /* MapView.swift in Sources */,
+				470F16002C137CC60026FA72 /* BarberShopViewModel.swift in Sources */,
+				475664822C001D2A002E5E56 /* BarberShopMapView.swift in Sources */,
 				470307CD2C0CE15100B667DC /* ReservationListView.swift in Sources */,
 				475664802C001CCE002E5E56 /* HomeView.swift in Sources */,
 				47F1368B2C00546100C4EEE5 /* UserService.swift in Sources */,
 				47F136882C00482D00C4EEE5 /* PasswordRecoveryView.swift in Sources */,
 				4783AD2F2C010A74009B911E /* ServiceBarber.swift in Sources */,
-				475633E62C0EE44A00EF80AC /* BarberiaView.swift in Sources */,
+				475633E62C0EE44A00EF80AC /* BarberShopListView.swift in Sources */,
 				4783AD312C010AD7009B911E /* Reservation.swift in Sources */,
-				475633E82C0EE45800EF80AC /* BarberoView.swift in Sources */,
 				470307D12C0CFBDC00B667DC /* DateFormatter.swift in Sources */,
 				4783AD2D2C01043E009B911E /* Barber.swift in Sources */,
 				475664742C001817002E5E56 /* InputView.swift in Sources */,
@@ -642,6 +676,14 @@
 				minimumVersion = 10.26.0;
 			};
 		};
+		47853AE62C0FD36800542BD3 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.11.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -809,6 +851,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 475664312C001575002E5E56 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAppCheck;
+		};
+		47853AE72C0FD36800542BD3 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47853AE62C0FD36800542BD3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		47853AE92C0FD43300542BD3 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47853AE62C0FD36800542BD3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		47853AEB2C0FD46300542BD3 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 47853AE62C0FD36800542BD3 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

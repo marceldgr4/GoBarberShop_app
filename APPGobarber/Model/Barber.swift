@@ -14,6 +14,6 @@ struct Barber: Identifiable, Codable,Hashable{
     let name: String
     let barbershopId: String
     let barbershopReference: DocumentReference
-    
+    let profileImageUrl: String?
     
 }
